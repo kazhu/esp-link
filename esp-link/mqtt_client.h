@@ -1,6 +1,6 @@
-#ifdef MQTT
 #ifndef MQTT_CLIENT_H
 #define MQTT_CLIENT_H
+#ifdef MQTT
 #include "mqtt.h"
 
 extern MQTT_Client mqttClient;
@@ -11,5 +11,5 @@ void mqtt_client_on_disconnected(MqttCallback disconnectedCb);
 void mqtt_client_on_published(MqttCallback publishedCb);
 void mqtt_client_on_data(MqttDataCallback dataCb);
 
-#endif //MQTT_CLIENT_H
 #endif // MQTT
+#endif //MQTT_CLIENT_H

@@ -470,6 +470,9 @@ ifeq (,$(findstring mqtt,$(MODULES)))
 	$(Q) rm -rf html_compressed/mqtt.html
 	$(Q) rm -rf html_compressed/mqtt.js
 endif
+ifeq (,$(findstring web-server,$(MODULES)))
+	$(Q) rm -rf html_compressed/web-server.html
+endif
 	$(Q) for file in `find html_compressed -type f -name "*.htm*"`; do \
 	    cat html_compressed/head- $$file >$${file}-; \
 	    mv $$file- $$file; \

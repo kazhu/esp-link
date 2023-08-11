@@ -31,7 +31,9 @@
 #include "log.h"
 #include "gpio.h"
 #include "cgiservices.h"
+#ifdef WEBSERVER
 #include "web-server.h"
+#endif
 
 #ifdef SYSLOG
 #include "syslog.h"
@@ -99,8 +101,10 @@ HttpdBuiltInUrl builtInUrls[] = {
 #ifdef MQTT
   { "/mqtt", cgiMqtt, NULL },
 #endif
+#ifdef WEBSERVER
   { "/web-server/upload", cgiWebServerSetupUpload, NULL },
   { "*.json", WEB_CgiJsonHook, NULL }, //Catch-all cgi JSON queries
+#endif
   { "*", cgiEspFsHook, NULL }, //Catch-all cgi function for the filesystem
   { NULL, NULL, NULL }
 };
@@ -176,7 +180,9 @@ user_init(void) {
   //os_printf("espFsInit %s\n", res?"ERR":"ok");
   // mount the http handlers
   httpdInit(builtInUrls, 80);
+#ifdef WEBSERVER
   WEB_Init();
+#endif
 
   // init the wifi-serial transparent bridge (port 23)
   serbridgeInit(23, 2323);

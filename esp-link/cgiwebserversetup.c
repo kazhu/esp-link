@@ -1,5 +1,6 @@
 // Copyright (c) 2015 by Thorsten von Eicken, see LICENSE.txt in the esp-link repo
 
+#ifdef WEBSERVER
 #include <esp8266.h>
 #include <osapi.h>
 #include "cgi.h"
@@ -187,3 +188,5 @@ int ICACHE_FLASH_ATTR cgiWebServerSetupUpload(HttpdConnData *connData)
   
   return multipartProcess(webServerContext, connData);
 }
+
+#endif
