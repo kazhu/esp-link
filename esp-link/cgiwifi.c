@@ -846,6 +846,8 @@ int ICACHE_FLASH_ATTR checkString(char *str){
  */
 void ICACHE_FLASH_ATTR wifiInit() {
 
+    wifi_set_phy_mode(PHY_MODE_11N);
+
     // Check the wifi opmode
     int x = wifi_get_opmode() & 0x3;
 

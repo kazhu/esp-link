@@ -18,7 +18,7 @@ FlashConfig flashDefault = {
   .netmask      = 0x00ffffff,
   .gateway      = 0,
   .log_mode     = 0,
-  .swap_uart    = 0,
+  .swap_uart    = 1,
   .tcp_enable   = 1, .rssi_enable = 0,
   .api_key      = "",
   .slip_enable  = 0, .mqtt_enable = 0, .mqtt_status_enable = 0,
