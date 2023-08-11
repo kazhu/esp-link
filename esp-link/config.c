@@ -6,6 +6,7 @@
 #include "config.h"
 #include "espfs.h"
 #include "crc16.h"
+#include "log.h"
 
 FlashConfig flashConfig;
 FlashConfig flashDefault = {
@@ -17,7 +18,7 @@ FlashConfig flashDefault = {
   .staticip     = 0,
   .netmask      = 0x00ffffff,
   .gateway      = 0,
-  .log_mode     = 0,
+  .log_mode     = LOG_MODE_OFF,
   .swap_uart    = 1,
   .tcp_enable   = 1, .rssi_enable = 0,
   .api_key      = "",
