@@ -7,9 +7,6 @@
 #include "cmd.h"
 #include "uart.h"
 #include <cgiwifi.h>
-#ifdef WEBSERVER
-#include <web-server.h>
-#endif
 
 #ifdef CMD_DBG
 #define DBG(format, ...) do { os_printf(format, ## __VA_ARGS__); } while(0)
@@ -37,10 +34,6 @@ const CmdList commands[] = {
   {CMD_WIFI_STATUS,     "WIFI_STATUS",    cmdWifiStatus},
   {CMD_CB_ADD,          "ADD_CB",         cmdAddCallback},
   {CMD_GET_TIME,        "GET_TIME",       cmdGetTime},
-#ifdef WEBSERVER
-  {CMD_WEB_SETUP,       "WEB_SETUP",      WEB_Setup},
-  {CMD_WEB_DATA,        "WEB_DATA",       WEB_Data},
-#endif
 };
 
 //===== List of registered callbacks (to uC)

@@ -102,8 +102,8 @@ LED_SERIAL_PIN      ?= 14
 
 # --------------- esp-link modules config options ---------------
 
-# Optional Modules: socket web-server syslog
-MODULES ?= socket web-server syslog
+# Optional Modules: syslog
+MODULES ?= syslog
 
 # --------------- esphttpd config options ---------------
 
@@ -228,14 +228,6 @@ CFLAGS=
 # set defines for optional modules
 ifneq (,$(findstring syslog,$(MODULES)))
 	CFLAGS		+= -DSYSLOG
-endif
-
-ifneq (,$(findstring web-server,$(MODULES)))
-	CFLAGS		+= -DWEBSERVER
-endif
-
-ifneq (,$(findstring socket,$(MODULES)))
-	CFLAGS		+= -DSOCKET
 endif
 
 # which modules (subdirectories) of the project to include in compiling
@@ -457,9 +449,6 @@ else
 	$(Q) cp -r html/head- html_compressed;
 	$(Q) cp -r html/*.html html_compressed;
 	$(Q) cp -r html/wifi/*.html html_compressed/wifi;	
-endif
-ifeq (,$(findstring web-server,$(MODULES)))
-	$(Q) rm -rf html_compressed/web-server.html
 endif
 	$(Q) for file in `find html_compressed -type f -name "*.htm*"`; do \
 	    cat html_compressed/head- $$file >$${file}-; \

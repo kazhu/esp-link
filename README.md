@@ -46,8 +46,6 @@ Separate documents:
 - [wifi configuration](WIFI-CONFIG.md)
 - [troubleshooting](TROUBLESHOOTING.md), [LED indicators](TROUBLESHOOTING.md#led-indicators)
 - [flashing an attached uC](UC-FLASHING.md)
-- [MQTT and outbound REST requests](RESTMQTT.md)
-- [service web pages](WEB-SERVER.md)
 - [building esp-link](BUILDING.md), [over-the-air flashing](BUILDING.md#updating-the-firmware-over-the-air)
 - [flash layout](FLASH.md)
 
