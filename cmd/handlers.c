@@ -10,9 +10,6 @@
 #ifdef WEBSERVER
 #include <web-server.h>
 #endif
-#ifdef SOCKET
-#include <socket.h>
-#endif
 
 #ifdef CMD_DBG
 #define DBG(format, ...) do { os_printf(format, ## __VA_ARGS__); } while(0)
@@ -43,10 +40,6 @@ const CmdList commands[] = {
 #ifdef WEBSERVER
   {CMD_WEB_SETUP,       "WEB_SETUP",      WEB_Setup},
   {CMD_WEB_DATA,        "WEB_DATA",       WEB_Data},
-#endif
-#ifdef SOCKET
-  {CMD_SOCKET_SETUP,    "SOCKET_SETUP",   SOCKET_Setup},
-  {CMD_SOCKET_SEND,     "SOCKET_SEND",    SOCKET_Send},
 #endif
 };
 

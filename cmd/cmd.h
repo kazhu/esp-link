@@ -46,9 +46,6 @@ typedef enum {
   CMD_WEB_SETUP = 30,   // set-up WEB callback
   CMD_WEB_DATA,         // WEB data from MCU
 
-  CMD_SOCKET_SETUP = 40, // set-up callbacks
-  CMD_SOCKET_SEND,       // send data over UDP socket
-
 } CmdName;
 
 typedef void (*cmdfunc_t)(CmdPacket *cmd);
