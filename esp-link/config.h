@@ -16,7 +16,6 @@ typedef struct {
   uint8_t   swap_uart;                  // swap uart0 to gpio 13&15
   uint8_t  tcp_enable, rssi_enable;    // TCP client settings
   char     api_key[48];                // RSSI submission API key (Grovestreams for now)
-  uint8_t  slip_enable;                // SLIP protocol
   char     sys_descr[129];             // system description
   int8_t   rx_pullup;                  // internal pull-up on RX pin
   char     sntp_server[32];

@@ -37,7 +37,6 @@
     <ClCompile Include="serial\crc16.c" />
     <ClCompile Include="serial\serbridge.c" />
     <ClCompile Include="serial\serled.c" />
-    <ClCompile Include="serial\slip.c" />
     <ClCompile Include="serial\uart.c" />
     <ClCompile Include="syslog\syslog.c" />
     <ClCompile Include="user\user_main.c" />
@@ -72,7 +71,6 @@
     <ClInclude Include="serial\crc16.h" />
     <ClInclude Include="serial\serbridge.h" />
     <ClInclude Include="serial\serled.h" />
-    <ClInclude Include="serial\slip.h" />
     <ClInclude Include="serial\uart.h" />
     <ClInclude Include="syslog\syslog.h" />
   </ItemGroup>

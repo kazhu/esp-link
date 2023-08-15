@@ -22,7 +22,6 @@ FlashConfig flashDefault = {
   .swap_uart    = 1,
   .tcp_enable   = 1, .rssi_enable = 0,
   .api_key      = "",
-  .slip_enable  = 0, 
   .sys_descr 	  = "P1 Port wifi adapter\0",
   .rx_pullup	  = 1,
   .sntp_server  = "hu.pool.ntp.org\0",
