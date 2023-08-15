@@ -8,14 +8,12 @@
 typedef struct {
   uint32_t seq; // flash write sequence number
   uint16_t magic, crc;
-  int8_t   reset_pin, isp_pin, conn_led_pin, ser_led_pin;
+  int8_t   conn_led_pin, ser_led_pin;
   int32_t  baud_rate;
   char     hostname[32];               // if using DHCP
   uint32_t staticip, netmask, gateway; // using DHCP if staticip==0
   uint8_t  log_mode;                   // UART log debug mode
-  uint8_t   swap_uart;                  // swap uart0 to gpio 13&15
-  uint8_t  tcp_enable, rssi_enable;    // TCP client settings
-  char     api_key[48];                // RSSI submission API key (Grovestreams for now)
+  uint8_t  swap_uart;                  // swap uart0 to gpio 13&15
   char     sys_descr[129];             // system description
   int8_t   rx_pullup;                  // internal pull-up on RX pin
   char     sntp_server[32];
@@ -37,8 +35,5 @@ bool configSave(void);
 bool configRestore(void);
 void configWipe(void);
 const size_t getFlashSize();
-
-const uint32_t getUserPageSectionStart();
-const uint32_t getUserPageSectionEnd();
 
 #endif

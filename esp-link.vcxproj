@@ -18,7 +18,6 @@
     <ClCompile Include="esp-link\cgioptiboot.c" />
     <ClCompile Include="esp-link\cgipins.c" />
     <ClCompile Include="esp-link\cgiservices.c" />
-    <ClCompile Include="esp-link\cgitcp.c" />
     <ClCompile Include="esp-link\cgiwifi.c" />
     <ClCompile Include="esp-link\config.c" />
     <ClCompile Include="esp-link\log.c" />
@@ -48,12 +47,10 @@
     <ClInclude Include="esp-link\cgioptiboot.h" />
     <ClInclude Include="esp-link\cgipins.h" />
     <ClInclude Include="esp-link\cgiservices.h" />
-    <ClInclude Include="esp-link\cgitcp.h" />
     <ClInclude Include="esp-link\cgiwifi.h" />
     <ClInclude Include="esp-link\config.h" />
     <ClInclude Include="esp-link\log.h" />
     <ClInclude Include="esp-link\status.h" />
-    <ClInclude Include="esp-link\stk500.h" />
     <ClInclude Include="esp-link\task.h" />
     <ClInclude Include="espfs\espfs.h" />
     <ClInclude Include="espfs\espfsformat.h" />
@@ -76,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="avrflash" />
     <None Include="BOARDS.md" />
     <None Include="espmake.cmd" />
     <None Include="FLASH.md" />

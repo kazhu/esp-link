@@ -1,12 +1,11 @@
   <div id="main" class="flex-fill flex-vbox" style="max-height:100%">
     <div class="header">
-      <h1>Microcontroller Console</h1>
+      <h1>P1 Port console</h1>
     </div>
 
     <div class="content flex-fill flex-vbox">
       <p>
-        <a id="reset-button" class="pure-button button-primary" href="#">Reset &#xb5;C</a>
-        &nbsp; <a id="clear-button" class="pure-button button-primary" href="#">Clear Log</a>
+        &nbsp; <a id="clear-button" class="pure-button button-primary" href="#">Clear</a>
         &nbsp; Baud:
         <select id="baud-sel" class="pure-button" href="#">
           <option value="460800">460800</option>
@@ -40,34 +39,6 @@
         <div class="pure-u-3-4"></div>
       </div>
       <pre class="console flex-fill" id="console">--- No Content ---</pre>
-      <div>
-        <div class="pure-g">
-          <div class="pure-u-1-4"><legend><b>Console entry</b></legend></div>
-          <div class="pure-u-2-4">
-            <legend>(ENTER to submit, ESC to clear)</legend>
-          </div>
-          <div class="pure-u-1-4">
-            <legend>Add:
-              <input type="checkbox" id="input-add-cr" checked class="inline"><label>CR(\r)</label>
-              <input type="checkbox" id="input-add-lf" checked class="inline"><label>LF(\n)</label>
-            </legend>
-          </div>
-        </div>
-        <div class="pure-g">
-          <div class="pure-u-1-1">
-            <span style="float:right; width:10px;"></span>
-            <input type="text" class="console-in" id="input-text" value="">
-          </div>
-        </div>
-        <div class="pure-g">
-          <div class="pure-u-1-4"><legend><b>History buffer</b></legend></div>
-          <div class="pure-u-2-4"><legend>(UP/DOWN arrows to select)</legend></div>
-          <div class="pure-u-1-4"></div>
-        </div>
-        <div class="pure-g">
-          <div class="pure-u-1-1"><select class="console-in" id="send-history" size="5"></select></div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -77,16 +48,6 @@
 <script type="text/javascript">
   onLoad(function() {
     fetchText(100, true);
-
-    $("#reset-button").addEventListener("click", function(e) {
-      e.preventDefault();
-      var co = $("#console");
-      co.innerHTML = "";
-      ajaxSpin('POST', "/console/reset",
-        function(resp) { showNotification("uC reset"); co.textEnd = 0; },
-        function(s, st) { showWarning("Error resetting uC"); }
-      );
-    });
 
     $("#clear-button").addEventListener("click", function(e) {
         e.preventDefault();
@@ -121,8 +82,6 @@
         function(s, st) { showWarning("Error setting format: " + st); }
       );
     });
-
-    consoleSendInit();
 
     addClass($('html')[0], "height100");
     addClass($('body')[0], "height100");

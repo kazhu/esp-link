@@ -15,10 +15,7 @@
 #include "cgi.h"
 #include "cgiwifi.h"
 #include "cgipins.h"
-#include "cgitcp.h"
 #include "cgiflash.h"
-#include "cgioptiboot.h"
-#include "auth.h"
 #include "espfs.h"
 #include "uart.h"
 #include "serbridge.h"
@@ -66,18 +63,12 @@ HttpdBuiltInUrl builtInUrls[] = {
   { "/flash/next", cgiGetFirmwareNext, NULL },
   { "/flash/upload", cgiUploadFirmware, NULL },
   { "/flash/reboot", cgiRebootFirmware, NULL },
-  { "/pgm/sync", cgiOptibootSync, NULL },
-  { "/pgm/upload", cgiOptibootData, NULL },
   { "/log/text", ajaxLog, NULL },
   { "/log/dbg", ajaxLogDbg, NULL },
   { "/log/reset", cgiReset, NULL },
-  { "/console/reset", ajaxConsoleReset, NULL },
   { "/console/baud", ajaxConsoleBaud, NULL },
   { "/console/fmt", ajaxConsoleFormat, NULL },
   { "/console/text", ajaxConsole, NULL },
-  { "/console/send", ajaxConsoleSend, NULL },
-  //Enable the line below to protect the WiFi configuration with an username/password combo.
-  //    {"/wifi/*", authBasic, myPassFn},
   { "/wifi", cgiRedirect, "/wifi/wifi.html" },
   { "/wifi/", cgiRedirect, "/wifi/wifi.html" },
   { "/wifi/info", cgiWifiInfo, NULL },
@@ -190,7 +181,6 @@ user_init(void) {
   // Init SNTP service
   cgiServicesSNTPInit();
   NOTICE("initializing user application");
-  app_init();
   NOTICE("Waiting for work to do...");
 #ifdef MEMLEAK_DEBUG
   system_show_malloc();

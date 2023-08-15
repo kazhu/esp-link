@@ -91,10 +91,6 @@ FLASH_SIZE ?= 4MB
 
 # The pin assignments below are used when the settings in flash are invalid, they
 # can be changed via the web interface
-# GPIO pin used to reset attached microcontroller, acative low
-MCU_RESET_PIN       ?= 12
-# GPIO pin used with reset to reprogram MCU (ISP=in-system-programming, unused with AVRs), active low
-MCU_ISP_PIN         ?= 13
 # GPIO pin used for "connectivity" LED, active low
 LED_CONN_PIN        ?= 0
 # GPIO pin used for "serial activity" LED, active low
@@ -243,7 +239,6 @@ LIBS = c gcc hal phy pp net80211 wpa main lwip_536 crypto
 CFLAGS	+= -Os -ggdb -std=c99 -Werror -Wpointer-arith -Wundef -Wall -Wl,-EL -fno-inline-functions \
 	-nostdlib -mlongcalls -mtext-section-literals -ffunction-sections -fdata-sections \
 	-D__ets__ -DICACHE_FLASH -Wno-address -DFIRMWARE_SIZE=$(ESP_FLASH_MAX) \
-	-DMCU_RESET_PIN=$(MCU_RESET_PIN) -DMCU_ISP_PIN=$(MCU_ISP_PIN) \
 	-DLED_CONN_PIN=$(LED_CONN_PIN) -DLED_SERIAL_PIN=$(LED_SERIAL_PIN) \
 	-DVERSION="esp-link $(VERSION)"
 
@@ -480,7 +475,7 @@ release: all
 	$(Q) egrep -a 'esp-link [a-z0-9.]+ - 201' $(FW_BASE)/user2.bin | cut -b 1-80
 	$(Q) cp $(FW_BASE)/user1.bin $(FW_BASE)/user2.bin $(SDK_BASE)/bin/blank.bin \
 	       "$(SDK_BASE)/bin/boot_v1.6.bin" "$(SDK_BASE)/bin/esp_init_data_default.bin" \
-	       wiflash avrflash release/esp-link-$(VERSION)
+	       wiflash release/esp-link-$(VERSION)
 	$(Q) tar zcf esp-link-$(VERSION).tgz -C release esp-link-$(VERSION)
 	$(Q) echo "Release file: esp-link-$(VERSION).tgz"
 	$(Q) rm -rf release

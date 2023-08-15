@@ -51,15 +51,6 @@ console_write_char(char c) {
 }
 
 int ICACHE_FLASH_ATTR
-ajaxConsoleReset(HttpdConnData *connData) {
-  if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
-  jsonHeader(connData, 200);
-  console_rd = console_wr = console_pos = 0;
-  serbridgeReset();
-  return HTTPD_CGI_DONE;
-}
-
-int ICACHE_FLASH_ATTR
 ajaxConsoleBaud(HttpdConnData *connData) {
   if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
   char buff[512];
@@ -110,24 +101,6 @@ ajaxConsoleFormat(HttpdConnData *connData) {
   return HTTPD_CGI_DONE;
 }
 
-
-int ICACHE_FLASH_ATTR
-ajaxConsoleSend(HttpdConnData *connData) {
-  if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
-  char buff[2048];
-  int len, status = 400;
-
-  // figure out where to start in buffer based on URI param
-  len = httpdFindArg(connData->getArgs, "text", buff, sizeof(buff));
-  if (len > 0) {
-    serledFlash(50); // short blink on serial LED
-    uart0_tx_buffer(buff, len);
-    status = 200;
-  }
-
-  jsonHeader(connData, status);
-  return HTTPD_CGI_DONE;
-}
 
 int ICACHE_FLASH_ATTR
 ajaxConsole(HttpdConnData *connData) {

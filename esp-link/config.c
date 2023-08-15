@@ -11,7 +11,6 @@
 FlashConfig flashConfig;
 FlashConfig flashDefault = {
   .seq = 33, .magic = 0, .crc = 0,
-  .reset_pin    = MCU_RESET_PIN, .isp_pin = MCU_ISP_PIN,
   .conn_led_pin = LED_CONN_PIN, .ser_led_pin = LED_SERIAL_PIN,
   .baud_rate    = 115200,
   .hostname     = "SlimmeLezer\0",
@@ -20,8 +19,6 @@ FlashConfig flashDefault = {
   .gateway      = 0,
   .log_mode     = LOG_MODE_OFF,
   .swap_uart    = 1,
-  .tcp_enable   = 1, .rssi_enable = 0,
-  .api_key      = "",
   .sys_descr 	  = "P1 Port wifi adapter\0",
   .rx_pullup	  = 1,
   .sntp_server  = "hu.pool.ntp.org\0",
@@ -190,43 +187,3 @@ getFlashSize() {
     return 0;
   return 1 << size_id;
 }
-
-const uint32_t getUserPageSectionStart()
-{
-  enum flash_size_map map = system_get_flash_size_map();
-  switch(map)
-  {
-    case FLASH_SIZE_4M_MAP_256_256:
-      return FLASH_SECT + FIRMWARE_SIZE - 3*FLASH_SECT;// bootloader + firmware - 12KB (highly risky...)
-    case FLASH_SIZE_8M_MAP_512_512:
-      return FLASH_SECT + FIRMWARE_SIZE;
-    case FLASH_SIZE_16M_MAP_512_512:
-    case FLASH_SIZE_16M_MAP_1024_1024:
-    case FLASH_SIZE_32M_MAP_512_512:
-    case FLASH_SIZE_32M_MAP_1024_1024:
-      return 0x100000;
-    default:
-      return 0xFFFFFFFF;
-  }
-}
-
-const uint32_t getUserPageSectionEnd()
-{
-  enum flash_size_map map = system_get_flash_size_map();
-  switch(map)
-  {
-    case FLASH_SIZE_4M_MAP_256_256:
-      return FLASH_SECT + FIRMWARE_SIZE - 2*FLASH_SECT;
-    case FLASH_SIZE_8M_MAP_512_512:
-      return FLASH_SECT + FIRMWARE_SIZE + 2*FLASH_SECT;
-    case FLASH_SIZE_16M_MAP_512_512:
-    case FLASH_SIZE_16M_MAP_1024_1024:
-      return 0x1FC000;
-    case FLASH_SIZE_32M_MAP_512_512:
-    case FLASH_SIZE_32M_MAP_1024_1024:
-      return 0x3FC000;
-    default:
-      return 0xFFFFFFFF;
-  }
-}
-

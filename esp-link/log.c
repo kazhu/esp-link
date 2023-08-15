@@ -157,21 +157,6 @@ ajaxLogDbg(HttpdConnData *connData) {
   return HTTPD_CGI_DONE;
 }
 
-void ICACHE_FLASH_ATTR dumpMem(void *addr, int len) {
-  uint8_t *a = addr;
-  int off = 0;
-  while (off < len) {
-    os_printf("%p ", a);
-    for (int i = 0; i < 16 && off + i < len; i++) {
-      os_printf(" %02x", a[i]);
-    }
-    os_printf(" ");
-    for (int i=0; i<16 && off<len; i++,off++,a++)
-      os_printf("%c", *a > 0x20 && *a < 0x3f ? *a : '.');
-    os_printf("\n");
-  }
-}
-
 void ICACHE_FLASH_ATTR logInit() {
   log_no_uart = flashConfig.log_mode == LOG_MODE_OFF; // ON unless set to always-off
   log_wr = 0;
