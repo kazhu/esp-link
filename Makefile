@@ -102,8 +102,8 @@ LED_SERIAL_PIN      ?= 14
 
 # --------------- esp-link modules config options ---------------
 
-# Optional Modules: mqtt rest socket web-server syslog
-MODULES ?= mqtt rest socket web-server syslog
+# Optional Modules: socket web-server syslog
+MODULES ?= socket web-server syslog
 
 # --------------- esphttpd config options ---------------
 
@@ -226,14 +226,6 @@ APPGEN_TOOL	?= gen_appbin.py
 CFLAGS=
 
 # set defines for optional modules
-ifneq (,$(findstring mqtt,$(MODULES)))
-	CFLAGS		+= -DMQTT
-endif
-
-ifneq (,$(findstring rest,$(MODULES)))
-	CFLAGS		+= -DREST
-endif
-
 ifneq (,$(findstring syslog,$(MODULES)))
 	CFLAGS		+= -DSYSLOG
 endif
@@ -465,10 +457,6 @@ else
 	$(Q) cp -r html/head- html_compressed;
 	$(Q) cp -r html/*.html html_compressed;
 	$(Q) cp -r html/wifi/*.html html_compressed/wifi;	
-endif
-ifeq (,$(findstring mqtt,$(MODULES)))
-	$(Q) rm -rf html_compressed/mqtt.html
-	$(Q) rm -rf html_compressed/mqtt.js
 endif
 ifeq (,$(findstring web-server,$(MODULES)))
 	$(Q) rm -rf html_compressed/web-server.html

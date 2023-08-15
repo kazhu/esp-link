@@ -212,9 +212,6 @@ int ICACHE_FLASH_ATTR cgiMenu(HttpdConnData *connData) {
         "\"WiFi Soft-AP\", \"/wifi/wifiAp.html\", "
         "\"&#xb5;C Console\", \"/console.html\", "
         "\"Services\", \"/services.html\", "
-#ifdef MQTT
-        "\"REST/MQTT\", \"/mqtt.html\", "
-#endif
         "\"Debug log\", \"/log.html\","
         "\"Upgrade Firmware\", \"/flash.html\""
 #ifdef WEBSERVER

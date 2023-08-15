@@ -16,16 +16,7 @@ typedef struct {
   uint8_t   swap_uart;                  // swap uart0 to gpio 13&15
   uint8_t  tcp_enable, rssi_enable;    // TCP client settings
   char     api_key[48];                // RSSI submission API key (Grovestreams for now)
-  uint8_t  slip_enable, mqtt_enable,   // SLIP protocol, MQTT client
-           mqtt_status_enable,         // MQTT status reporting
-           mqtt_timeout,               // MQTT send timeout
-           mqtt_clean_session;         // MQTT clean session
-  uint16_t mqtt_port, mqtt_keepalive;  // MQTT Host port, MQTT Keepalive timer
-  char     mqtt_old_host[32],          // replaced by 64-char mqtt_host below
-           mqtt_clientid[48],
-           mqtt_username[32],
-           mqtt_password[32],
-           mqtt_status_topic[32];
+  uint8_t  slip_enable;                // SLIP protocol
   char     sys_descr[129];             // system description
   int8_t   rx_pullup;                  // internal pull-up on RX pin
   char     sntp_server[32];
@@ -37,7 +28,6 @@ typedef struct {
   uint8_t  mdns_enable;
   char     mdns_servername[32];
   int8_t   timezone_offset;
-  char     mqtt_host[64];              // MQTT host we connect to, was 32-char mqtt_old_host
   int8_t   data_bits;
   int8_t   parity;
   int8_t   stop_bits;

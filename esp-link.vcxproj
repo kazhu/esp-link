@@ -15,7 +15,6 @@
     <ClCompile Include="cmd\handlers.c" />
     <ClCompile Include="esp-link\cgi.c" />
     <ClCompile Include="esp-link\cgiflash.c" />
-    <ClCompile Include="esp-link\cgimqtt.c" />
     <ClCompile Include="esp-link\cgioptiboot.c" />
     <ClCompile Include="esp-link\cgipins.c" />
     <ClCompile Include="esp-link\cgiservices.c" />
@@ -24,7 +23,6 @@
     <ClCompile Include="esp-link\config.c" />
     <ClCompile Include="esp-link\log.c" />
     <ClCompile Include="esp-link\main.c" />
-    <ClCompile Include="esp-link\mqtt_client.c" />
     <ClCompile Include="esp-link\status.c" />
     <ClCompile Include="esp-link\task.c" />
     <ClCompile Include="espfs\espfs.c" />
@@ -35,11 +33,6 @@
     <ClCompile Include="httpd\base64.c" />
     <ClCompile Include="httpd\httpd.c" />
     <ClCompile Include="httpd\httpdespfs.c" />
-    <ClCompile Include="mqtt\mqtt.c" />
-    <ClCompile Include="mqtt\mqtt_cmd.c" />
-    <ClCompile Include="mqtt\mqtt_msg.c" />
-    <ClCompile Include="mqtt\pktbuf.c" />
-    <ClCompile Include="rest\rest.c" />
     <ClCompile Include="serial\console.c" />
     <ClCompile Include="serial\crc16.c" />
     <ClCompile Include="serial\serbridge.c" />
@@ -53,7 +46,6 @@
     <ClInclude Include="cmd\cmd.h" />
     <ClInclude Include="esp-link\cgi.h" />
     <ClInclude Include="esp-link\cgiflash.h" />
-    <ClInclude Include="esp-link\cgimqtt.h" />
     <ClInclude Include="esp-link\cgioptiboot.h" />
     <ClInclude Include="esp-link\cgipins.h" />
     <ClInclude Include="esp-link\cgiservices.h" />
@@ -61,7 +53,6 @@
     <ClInclude Include="esp-link\cgiwifi.h" />
     <ClInclude Include="esp-link\config.h" />
     <ClInclude Include="esp-link\log.h" />
-    <ClInclude Include="esp-link\mqtt_client.h" />
     <ClInclude Include="esp-link\status.h" />
     <ClInclude Include="esp-link\stk500.h" />
     <ClInclude Include="esp-link\task.h" />
@@ -77,11 +68,6 @@
     <ClInclude Include="include\espmissingincludes.h" />
     <ClInclude Include="include\uart_hw.h" />
     <ClInclude Include="include\user_config.h" />
-    <ClInclude Include="mqtt\mqtt.h" />
-    <ClInclude Include="mqtt\mqtt_cmd.h" />
-    <ClInclude Include="mqtt\mqtt_msg.h" />
-    <ClInclude Include="mqtt\pktbuf.h" />
-    <ClInclude Include="rest\rest.h" />
     <ClInclude Include="serial\console.h" />
     <ClInclude Include="serial\crc16.h" />
     <ClInclude Include="serial\serbridge.h" />
@@ -102,8 +88,6 @@
     <None Include="html\home.html" />
     <None Include="html\jl-400x110.png-" />
     <None Include="html\log.html" />
-    <None Include="html\mqtt.html" />
-    <None Include="html\mqtt.js" />
     <None Include="html\pure.css" />
     <None Include="html\services.html" />
     <None Include="html\services.js" />
@@ -147,8 +131,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <NMakeOutput />
-    <NMakePreprocessorDefinitions>__ets__;_STDINT_H;ICACHE_FLASH;__MINGW32__;__WIN32__;MQTT;REST;SYSLOG;FIRMWARE_SIZE</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath>.\syslog;.\rest;.\esp-link;.\mqtt;.\cmd;.\serial;.\user;.\espfs;.\httpd;.\include;..\esp_iot_sdk_v1.5.2\include;..\xtensa-lx106-elf\xtensa-lx106-elf\include;c:\tools\mingw64\x86_64-w64-mingw32\include;c:\tools\mingw64\lib\gcc\x86_64-w64-mingw32\4.8.3\include</NMakeIncludeSearchPath>
+    <NMakePreprocessorDefinitions>__ets__;_STDINT_H;ICACHE_FLASH;__MINGW32__;__WIN32__;SYSLOG;FIRMWARE_SIZE</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>.\syslog;;.\esp-link;.\cmd;.\serial;.\user;.\espfs;.\httpd;.\include;..\esp_iot_sdk_v1.5.2\include;..\xtensa-lx106-elf\xtensa-lx106-elf\include;c:\tools\mingw64\x86_64-w64-mingw32\include;c:\tools\mingw64\lib\gcc\x86_64-w64-mingw32\4.8.3\include</NMakeIncludeSearchPath>
     <ExecutablePath />
     <ReferencePath />
     <LibraryPath />

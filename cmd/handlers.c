@@ -7,12 +7,6 @@
 #include "cmd.h"
 #include "uart.h"
 #include <cgiwifi.h>
-#ifdef MQTT
-#include <mqtt_cmd.h>
-#endif
-#ifdef REST
-#include <rest.h>
-#endif
 #ifdef WEBSERVER
 #include <web-server.h>
 #endif
@@ -46,17 +40,6 @@ const CmdList commands[] = {
   {CMD_WIFI_STATUS,     "WIFI_STATUS",    cmdWifiStatus},
   {CMD_CB_ADD,          "ADD_CB",         cmdAddCallback},
   {CMD_GET_TIME,        "GET_TIME",       cmdGetTime},
-#ifdef MQTT
-  {CMD_MQTT_SETUP,      "MQTT_SETUP",     MQTTCMD_Setup},
-  {CMD_MQTT_PUBLISH,    "MQTT_PUB",       MQTTCMD_Publish},
-  {CMD_MQTT_SUBSCRIBE , "MQTT_SUB",       MQTTCMD_Subscribe},
-  {CMD_MQTT_LWT,        "MQTT_LWT",       MQTTCMD_Lwt},
-#endif
-#ifdef REST
-  {CMD_REST_SETUP,      "REST_SETUP",     REST_Setup},
-  {CMD_REST_REQUEST,    "REST_REQ",       REST_Request},
-  {CMD_REST_SETHEADER,  "REST_SETHDR",    REST_SetHeader},
-#endif
 #ifdef WEBSERVER
   {CMD_WEB_SETUP,       "WEB_SETUP",      WEB_Setup},
   {CMD_WEB_DATA,        "WEB_DATA",       WEB_Data},

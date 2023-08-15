@@ -16,7 +16,6 @@
 #include "cgiwifi.h"
 #include "cgipins.h"
 #include "cgitcp.h"
-#include "cgimqtt.h"
 #include "cgiflash.h"
 #include "cgioptiboot.h"
 #include "cgiwebserversetup.h"
@@ -98,9 +97,6 @@ HttpdBuiltInUrl builtInUrls[] = {
   { "/services/info", cgiServicesInfo, NULL },
   { "/services/update", cgiServicesSet, NULL },
   { "/pins", cgiPins, NULL },
-#ifdef MQTT
-  { "/mqtt", cgiMqtt, NULL },
-#endif
 #ifdef WEBSERVER
   { "/web-server/upload", cgiWebServerSetupUpload, NULL },
   { "*.json", WEB_CgiJsonHook, NULL }, //Catch-all cgi JSON queries
@@ -124,7 +120,6 @@ char* esp_link_version = VERS_STR(VERSION);
 extern uint32_t _binary_espfs_img_start;
 
 extern void app_init(void);
-extern void mqtt_client_init(void);
 
 void ICACHE_FLASH_ATTR
 user_rf_pre_init(void) {
@@ -205,12 +200,6 @@ user_init(void) {
 
   // Init SNTP service
   cgiServicesSNTPInit();
-#ifdef MQTT
-  if (flashConfig.mqtt_enable) {
-    NOTICE("initializing MQTT");
-    mqtt_client_init();
-  }
-#endif
   NOTICE("initializing user application");
   app_init();
   NOTICE("Waiting for work to do...");

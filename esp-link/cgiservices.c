@@ -3,7 +3,6 @@
 #include "cgi.h"
 #include "config.h"
 #include "sntp.h"
-#include "cgimqtt.h"
 #ifdef SYSLOG
 #include "syslog.h"
 #endif
@@ -72,7 +71,6 @@ int ICACHE_FLASH_ATTR cgiSystemInfo(HttpdConnData *connData) {
       "\"id\": \"0x%02X 0x%04X\", "
       "\"partition\": \"%s\", "
       "\"slip\": \"%s\", "
-      "\"mqtt\": \"%s/%s\", "
       "\"baud\": \"%d\", "
       "\"description\": \"%s\""
     " }",
@@ -84,8 +82,6 @@ int ICACHE_FLASH_ATTR cgiSystemInfo(HttpdConnData *connData) {
     fid & 0xff, (fid & 0xff00) | ((fid >> 16) & 0xff),
     part_id ? "user2.bin" : "user1.bin",
     flashConfig.slip_enable ? "enabled" : "disabled",
-    flashConfig.mqtt_enable ? "enabled" : "disabled",
-    mqttState(),
     flashConfig.baud_rate,
     flashConfig.sys_descr
     );

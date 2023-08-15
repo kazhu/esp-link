@@ -43,15 +43,6 @@ typedef enum {
   CMD_CB_EVENTS,
   CMD_GET_TIME,       // get current time in seconds since the unix epoch
 
-  CMD_MQTT_SETUP = 10,  // set-up callbacks
-  CMD_MQTT_PUBLISH,     // publish a message
-  CMD_MQTT_SUBSCRIBE,   // subscribe to a topic
-  CMD_MQTT_LWT,         // set the last-will-topic and messge
-
-  CMD_REST_SETUP = 20,  // set-up callbacks
-  CMD_REST_REQUEST,     // do REST request
-  CMD_REST_SETHEADER,	// define header
-
   CMD_WEB_SETUP = 30,   // set-up WEB callback
   CMD_WEB_DATA,         // WEB data from MCU
 
