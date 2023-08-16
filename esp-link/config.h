@@ -17,11 +17,6 @@ typedef struct {
   char     sys_descr[129];             // system description
   int8_t   rx_pullup;                  // internal pull-up on RX pin
   char     sntp_server[32];
-  char     syslog_host[32];
-  uint16_t syslog_minheap;             // min. heap to allow queuing
-  uint8_t  syslog_filter,              // min. severity
-           syslog_showtick,            // show system tick (µs)
-           syslog_showdate;            // populate SYSLOG date field
   uint8_t  mdns_enable;
   char     mdns_servername[32];
   int8_t   timezone_offset;

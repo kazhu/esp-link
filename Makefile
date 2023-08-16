@@ -98,8 +98,8 @@ LED_SERIAL_PIN      ?= 14
 
 # --------------- esp-link modules config options ---------------
 
-# Optional Modules: syslog
-MODULES ?= syslog
+# Optional Modules: 
+MODULES ?= 
 
 # --------------- esphttpd config options ---------------
 
@@ -221,14 +221,9 @@ APPGEN_TOOL	?= gen_appbin.py
 
 CFLAGS=
 
-# set defines for optional modules
-ifneq (,$(findstring syslog,$(MODULES)))
-	CFLAGS		+= -DSYSLOG
-endif
-
 # which modules (subdirectories) of the project to include in compiling
 LIBRARIES_DIR 	= libraries
-MODULES		+= espfs httpd user serial cmd esp-link
+MODULES		+= espfs httpd serial esp-link
 MODULES		+= $(foreach sdir,$(LIBRARIES_DIR),$(wildcard $(sdir)/*))
 EXTRA_INCDIR 	= include .
 

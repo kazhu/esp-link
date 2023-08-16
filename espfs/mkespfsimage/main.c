@@ -205,7 +205,7 @@ int handleFile(int f, char *name, int compression, int level, char **compName, o
 			*compName = "unknown";
 		}
 	}
-  *csizePtr = csize;
+	*csizePtr = csize;
 	return (csize*100)/size;
 }
 
@@ -291,7 +291,7 @@ int main(int argc, char **argv) {
 			f=open(fileName, O_RDONLY);
 			if (f>0) {
 				char *compName = "unknown";
-        off_t csize;
+				off_t csize;
 				rate=handleFile(f, realName, compType, compLvl, &compName, &csize);
 				fprintf(stderr, "%-16s (%3d%%, %s, %4u bytes)\n", realName, rate, compName, (uint32_t)csize);
 				close(f);

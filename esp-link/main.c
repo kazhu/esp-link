@@ -27,17 +27,9 @@
 #include "gpio.h"
 #include "cgiservices.h"
 
-#ifdef SYSLOG
-#include "syslog.h"
-#define NOTICE(format, ...) do {                                            \
-  LOG_NOTICE(format, ## __VA_ARGS__ );                                      \
-  os_printf(format "\n", ## __VA_ARGS__);                                   \
-} while ( 0 )
-#else
 #define NOTICE(format, ...) do {                                            \
   os_printf(format "\n", ## __VA_ARGS__);                                   \
 } while ( 0 )
-#endif
 
 #ifdef MEMLEAK_DEBUG
 #include "mem.h"

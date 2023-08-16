@@ -3,9 +3,6 @@
 #include "cgi.h"
 #include "config.h"
 #include "sntp.h"
-#ifdef SYSLOG
-#include "syslog.h"
-#endif
 
 #ifdef CGISERVICES_DBG
 #define DBG(format, ...) do { os_printf(format, ## __VA_ARGS__); } while(0)
@@ -105,25 +102,11 @@ int ICACHE_FLASH_ATTR cgiServicesInfo(HttpdConnData *connData) {
 
   os_sprintf(buff,
     "{ "
-#ifdef SYSLOG
-      "\"syslog_host\": \"%s\", "
-      "\"syslog_minheap\": %d, "
-      "\"syslog_filter\": %d, "
-      "\"syslog_showtick\": \"%s\", "
-      "\"syslog_showdate\": \"%s\", "
-#endif
       "\"timezone_offset\": %d, "
       "\"sntp_server\": \"%s\", "
       "\"mdns_enable\": \"%s\", "
       "\"mdns_servername\": \"%s\""
     " }",
-#ifdef SYSLOG
-    flashConfig.syslog_host,
-    flashConfig.syslog_minheap,
-    flashConfig.syslog_filter,
-    flashConfig.syslog_showtick ? "enabled" : "disabled",
-    flashConfig.syslog_showdate ? "enabled" : "disabled",
-#endif
     flashConfig.timezone_offset,
     flashConfig.sntp_server,
     flashConfig.mdns_enable ? "enabled" : "disabled",
@@ -137,25 +120,6 @@ int ICACHE_FLASH_ATTR cgiServicesInfo(HttpdConnData *connData) {
 
 int ICACHE_FLASH_ATTR cgiServicesSet(HttpdConnData *connData) {
   if (connData->conn == NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
-
-  int8_t syslog = 0;
-
-  syslog |= getStringArg(connData, "syslog_host", flashConfig.syslog_host, sizeof(flashConfig.syslog_host));
-  if (syslog < 0) return HTTPD_CGI_DONE;
-  syslog |= getUInt16Arg(connData, "syslog_minheap", &flashConfig.syslog_minheap);
-  if (syslog < 0) return HTTPD_CGI_DONE;
-  syslog |= getUInt8Arg(connData, "syslog_filter", &flashConfig.syslog_filter);
-  if (syslog < 0) return HTTPD_CGI_DONE;
-  syslog |= getBoolArg(connData, "syslog_showtick", &flashConfig.syslog_showtick);
-  if (syslog < 0) return HTTPD_CGI_DONE;
-  syslog |= getBoolArg(connData, "syslog_showdate", &flashConfig.syslog_showdate);
-  if (syslog < 0) return HTTPD_CGI_DONE;
-
-#ifdef SYSLOG
-  if (syslog > 0) {
-    syslog_init(flashConfig.syslog_host);
-  }
-#endif
 
   int8_t sntp = 0;
   sntp |= getInt8Arg(connData, "timezone_offset", &flashConfig.timezone_offset);

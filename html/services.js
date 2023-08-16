@@ -47,16 +47,9 @@ function displayServices(data) {
     }
   });
 
-  $("#syslog-spinner").setAttribute("hidden", "");
   $("#sntp-spinner").setAttribute("hidden", "");
   $("#mdns-spinner").setAttribute("hidden", "");
 
-  if (data.syslog_host !== undefined) {
-    $("#Syslog-form").removeAttribute("hidden");
-  } else {
-    // syslog disabled...
-    $("#Syslog-form").parentNode.setAttribute("hidden", "");
-  }
   $("#SNTP-form").removeAttribute("hidden");
   $("#mDNS-form").removeAttribute("hidden");
 
