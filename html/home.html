@@ -52,47 +52,6 @@
         <!-- RIGHT COLUMN -->
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="card">
-            <h1>Pin assignment</h1>
-            <div id="pin-spinner" class="spinner spinner-small"></div>
-            <div id="pin-table" hidden>
-              <form action="#" id="pinform" class="pure-form pure-form-aligned form-narrow">
-                <div class="pure-control-group">
-                  <label for="pin-preset">Presets</label>
-                  <select id="pin-preset" class="pure-button">
-                    <option value="" selected disabled></option>
-                  </select>
-                </div>
-                <hr>
-                <div class="pure-control-group">
-                  <label for="pin-conn">Conn LED</label>
-                  <select id="pin-conn"></select>
-                  <div class="popup">LED to show WiFi connectivity</div>
-                </div>
-                <div class="pure-control-group">
-                  <label for="pin-ser">Serial LED</label>
-                  <select id="pin-ser"></select>
-                  <div class="popup">LED to show serial activity</div>
-                </div>
-                <div class="pure-control-group">
-                  <label for="pin-swap">UART pins</label>
-                  <select id="pin-swap" class="pure-button">
-                    <option value="0">normal</option>
-                    <option value="1">swapped</option>
-                  </select>
-                  <div class="popup">Swap UART0 pins to avoid ROM boot message.<br>Normal is
-                    TX on gpio1/TX0 and RX on gpio3/RX0, swapped is TX on gpio15 and RX on gpio13.
-                  </div>
-                </div>
-                <div class="pure-control-group">
-                  <label for="pin-rxpup" class="pure-checkbox">RX pull-up</label>
-                  <input id="pin-rxpup" type="checkbox">
-                  <div class="popup">Enable internal 40K pull-up on RX</div>
-                </div>
-                <button id="set-pins" type="submit" class="pure-button button-primary">Change!</button>
-              </form>
-            </div>
-          </div>
-          <div class="card">
             <h1>System details</h1>
             <div id="system-spinner" class="spinner spinner-small"></div>
             <table id="system-table" class="pure-table pure-table-horizontal" hidden><tbody>
@@ -133,10 +92,8 @@
 onLoad(function() {
   makeAjaxInput("system", "description");
   makeAjaxInput("system", "name");
-  fetchPins();
   getWifiInfo();
   getSystemInfo();
-  bnd($("#pinform"), "submit", setPins);
 });
 </script>
 </body></html>

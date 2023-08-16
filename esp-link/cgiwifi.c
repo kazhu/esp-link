@@ -328,7 +328,6 @@ static void ICACHE_FLASH_ATTR resetTimerCb(void *arg) {
       os_timer_arm(&resetTimer, RESET_TIMEOUT, 0); // check one more time after switching to STA-only
 #endif
     }
-    log_uart(false);
     // no more resetTimer at this point, gotta use physical reset to recover if in trouble
   } else {
     // we don't have an IP address
@@ -337,7 +336,6 @@ static void ICACHE_FLASH_ATTR resetTimerCb(void *arg) {
       wifi_set_opmode(3);
       wifi_softap_set_config(&apconf);
     }
-    log_uart(true);
     DBG("Enabling/continuing uart log\n");
     os_timer_arm(&resetTimer, RESET_TIMEOUT, 0);
   }

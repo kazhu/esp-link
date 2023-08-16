@@ -14,7 +14,6 @@
 #include "httpdespfs.h"
 #include "cgi.h"
 #include "cgiwifi.h"
-#include "cgipins.h"
 #include "cgiflash.h"
 #include "espfs.h"
 #include "uart.h"
@@ -56,10 +55,7 @@ HttpdBuiltInUrl builtInUrls[] = {
   { "/flash/upload", cgiUploadFirmware, NULL },
   { "/flash/reboot", cgiRebootFirmware, NULL },
   { "/log/text", ajaxLog, NULL },
-  { "/log/dbg", ajaxLogDbg, NULL },
   { "/log/reset", cgiReset, NULL },
-  { "/console/baud", ajaxConsoleBaud, NULL },
-  { "/console/fmt", ajaxConsoleFormat, NULL },
   { "/console/text", ajaxConsole, NULL },
   { "/wifi", cgiRedirect, "/wifi/wifi.html" },
   { "/wifi/", cgiRedirect, "/wifi/wifi.html" },
@@ -75,7 +71,6 @@ HttpdBuiltInUrl builtInUrls[] = {
   { "/system/update", cgiSystemSet, NULL },
   { "/services/info", cgiServicesInfo, NULL },
   { "/services/update", cgiServicesSet, NULL },
-  { "/pins", cgiPins, NULL },
   { "*", cgiEspFsHook, NULL }, //Catch-all cgi function for the filesystem
   { NULL, NULL, NULL }
 };
@@ -151,8 +146,8 @@ user_init(void) {
   // mount the http handlers
   httpdInit(builtInUrls, 80);
 
-  // init the wifi-serial transparent bridge (port 23)
-  serbridgeInit(23, 2323);
+  // init the wifi-serial transparent bridge (port 2323)
+  serbridgeInit(2323);
   uart_add_recv_cb(&serbridgeUartCb);
 #ifdef SHOW_HEAP_USE
   os_timer_disarm(&prHeapTimer);

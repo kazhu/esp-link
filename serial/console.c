@@ -51,58 +51,6 @@ console_write_char(char c) {
 }
 
 int ICACHE_FLASH_ATTR
-ajaxConsoleBaud(HttpdConnData *connData) {
-  if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
-  char buff[512];
-  int len, status = 400;
-  len = httpdFindArg(connData->getArgs, "rate", buff, sizeof(buff));
-  if (len > 0) {
-    int rate = atoi(buff);
-    if (rate >= 300 && rate <= 1000000) {
-      uart0_baud(rate);
-      flashConfig.baud_rate = rate;
-      status = configSave() ? 200 : 400;
-    }
-  } else if (connData->requestType == HTTPD_METHOD_GET) {
-    status = 200;
-  }
-
-  jsonHeader(connData, status);
-  os_sprintf(buff, "{\"rate\": %d}", flashConfig.baud_rate);
-  httpdSend(connData, buff, -1);
-  return HTTPD_CGI_DONE;
-}
-
-int ICACHE_FLASH_ATTR
-ajaxConsoleFormat(HttpdConnData *connData) {
-  if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
-  char buff[16];
-  int len, status = 400;
-
-  len = httpdFindArg(connData->getArgs, "fmt", buff, sizeof(buff));
-  if (len >= 3) {
-    int c = buff[0];
-    if (c >= '5' && c <= '8') flashConfig.data_bits = c - '5' + FIVE_BITS;
-    if (buff[1] == 'N') flashConfig.parity = NONE_BITS;
-    if (buff[1] == 'E') flashConfig.parity = EVEN_BITS;
-    if (buff[1] == 'O') flashConfig.parity = ODD_BITS;
-    if (buff[2] == '1') flashConfig.stop_bits = ONE_STOP_BIT;
-    if (buff[2] == '2') flashConfig.stop_bits = TWO_STOP_BIT;
-    uart0_config(flashConfig.data_bits, flashConfig.parity, flashConfig.stop_bits);
-    status = configSave() ? 200 : 400;
-  } else if (connData->requestType == HTTPD_METHOD_GET) {
-    status = 200;
-  }
-
-  jsonHeader(connData, status);
-  os_sprintf(buff, "{\"fmt\": \"%c%c%c\"}", flashConfig.data_bits + '5',
-      flashConfig.parity ? 'E' : 'N', flashConfig.stop_bits ? '2': '1');
-  httpdSend(connData, buff, -1);
-  return HTTPD_CGI_DONE;
-}
-
-
-int ICACHE_FLASH_ATTR
 ajaxConsole(HttpdConnData *connData) {
   if (connData->conn==NULL) return HTTPD_CGI_DONE; // Connection aborted. Clean up.
   char buff[2048];
@@ -148,10 +96,4 @@ ajaxConsole(HttpdConnData *connData) {
   httpdSend(connData, buff, len);
   return HTTPD_CGI_DONE;
 }
-
-void ICACHE_FLASH_ATTR consoleInit() {
-  console_wr = 0;
-  console_rd = 0;
-}
-
 

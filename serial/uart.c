@@ -31,8 +31,8 @@ LOCAL uint8_t uart_recvTaskNum;
 
 // UartDev is defined and initialized in rom code.
 extern UartDevice    UartDev;
-#define MAX_CB 4
-static UartRecv_cb uart_recv_cb[4];
+#define MAX_CB 1
+static UartRecv_cb uart_recv_cb[MAX_CB];
 
 static void uart0_rx_intr_handler(void *para);
 
@@ -44,7 +44,7 @@ static void uart0_rx_intr_handler(void *para);
  * Parameters   : uart_no, use UART0 or UART1 defined ahead
  * Returns      : NONE
 *******************************************************************************/
-void ICACHE_FLASH_ATTR
+static void ICACHE_FLASH_ATTR
 uart_config(uint8 uart_no, UartBautRate baudrate, uint32 conf0)
 {
   if (uart_no == UART1) {
@@ -101,7 +101,7 @@ uart_config(uint8 uart_no, UartBautRate baudrate, uint32 conf0)
  * Parameters   : uint8 TxChar - character to tx
  * Returns      : OK
 *******************************************************************************/
-STATUS
+static STATUS
 uart_tx_one_char(uint8 uart, uint8 c)
 {
   //Wait until there is room in the FIFO
@@ -109,59 +109,6 @@ uart_tx_one_char(uint8 uart, uint8 c)
   //Send the character
   WRITE_PERI_REG(UART_FIFO(uart), c);
   return OK;
-}
-
-/******************************************************************************
- * FunctionName : uart1_write_char
- * Description  : Internal used function
- *                Do some special deal while tx char is '\r' or '\n'
- * Parameters   : char c - character to tx
- * Returns      : NONE
-*******************************************************************************/
-void ICACHE_FLASH_ATTR
-uart1_write_char(char c)
-{
-  //if (c == '\n') uart_tx_one_char(UART1, '\r');
-  uart_tx_one_char(UART1, c);
-}
-void ICACHE_FLASH_ATTR
-uart0_write_char(char c)
-{
-  //if (c == '\n') uart_tx_one_char(UART0, '\r');
-  uart_tx_one_char(UART0, c);
-}
-/******************************************************************************
- * FunctionName : uart0_tx_buffer
- * Description  : use uart0 to transfer buffer
- * Parameters   : uint8 *buf - point to send buffer
- *                uint16 len - buffer len
- * Returns      :
-*******************************************************************************/
-void ICACHE_FLASH_ATTR
-uart0_tx_buffer(char *buf, uint16 len)
-{
-  uint16 i;
-
-  for (i = 0; i < len; i++)
-  {
-    uart_tx_one_char(UART0, buf[i]);
-  }
-}
-
-/******************************************************************************
- * FunctionName : uart0_sendStr
- * Description  : use uart0 to transfer buffer
- * Parameters   : uint8 *buf - point to send buffer
- *                uint16 len - buffer len
- * Returns      :
-*******************************************************************************/
-void ICACHE_FLASH_ATTR
-uart0_sendStr(const char *str)
-{
-  while(*str)
-  {
-    uart_tx_one_char(UART0, *str++);
-  }
 }
 
 static uint32 last_frm_err; // time in us when last framing error message was printed
@@ -233,35 +180,6 @@ uart_recvTask(os_event_t *events)
   ETS_UART_INTR_ENABLE();
 }
 
-// Turn UART interrupts off and poll for nchars or until timeout hits
-uint16_t ICACHE_FLASH_ATTR
-uart0_rx_poll(char *buff, uint16_t nchars, uint32_t timeout_us) {
-  ETS_UART_INTR_DISABLE();
-  uint16_t got = 0;
-  uint32_t start = system_get_time(); // time in us
-  while (system_get_time()-start < timeout_us) {
-    while (READ_PERI_REG(UART_STATUS(UART0)) & (UART_RXFIFO_CNT << UART_RXFIFO_CNT_S)) {
-      buff[got++] = READ_PERI_REG(UART_FIFO(UART0)) & 0xFF;
-      if (got == nchars) goto done;
-    }
-  }
-done:
-  ETS_UART_INTR_ENABLE();
-  return got;
-}
-
-void ICACHE_FLASH_ATTR
-uart0_baud(int rate) {
-  os_printf("UART %d baud\n", rate);
-  uart_div_modify(UART0, UART_CLK_FREQ / rate);
-}
-
-void ICACHE_FLASH_ATTR
-uart0_config(uint8_t data_bits, uint8_t parity, uint8_t stop_bits) {
-  uint32_t conf0 = CALC_UARTMODE(data_bits, parity, stop_bits);
-  WRITE_PERI_REG(UART_CONF0(0), conf0);
-}
-
 /******************************************************************************
  * FunctionName : uart_init
  * Description  : user interface for init uart
@@ -278,9 +196,6 @@ uart_init(uint32 conf0, UartBautRate uart0_br, UartBautRate uart1_br)
   for (int i=0; i<4; i++) uart_tx_one_char(UART1, '\n');
   for (int i=0; i<4; i++) uart_tx_one_char(UART0, '\n');
   ETS_UART_INTR_ENABLE();
-
-  // install uart1 putc callback
-  os_install_putc1((void *)uart0_write_char);
 
   uart_recvTaskNum = register_usr_task(uart_recvTask);
 }

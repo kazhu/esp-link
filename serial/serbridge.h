@@ -15,13 +15,12 @@ typedef struct serbridgeConnData {
 	struct espconn *conn;
 	uint16         txbufferlen;   // length of data in txbuffer
 	char           *txbuffer;     // buffer for the data to send
-  char           *sentbuffer;   // buffer sent, awaiting callback to get freed
-  uint32_t       txoverflow_at; // when the transmitter started to overflow
+	char           *sentbuffer;   // buffer sent, awaiting callback to get freed
+	uint32_t       txoverflow_at; // when the transmitter started to overflow
 	bool           readytosend;   // true, if txbuffer can be sent by espconn_sent
 } serbridgeConnData;
 
-void ICACHE_FLASH_ATTR serbridgeInit(int port1, int port2);
-void ICACHE_FLASH_ATTR serbridgeInitPins(void);
+void ICACHE_FLASH_ATTR serbridgeInit(int port1);
 void ICACHE_FLASH_ATTR serbridgeUartCb(char *buf, short len);
 
 #endif /* __SER_BRIDGE_H__ */

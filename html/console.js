@@ -21,11 +21,7 @@ function updateText(resp) {
 
   var delay = 3000;
   if (resp != null && resp.len > 0) {
-//    console.log("updateText got", resp.len, "chars at", resp.start);
     var isScrolledToBottom = el.scrollHeight - el.clientHeight <= el.scrollTop + 1;
-    //console.log("isScrolledToBottom="+isScrolledToBottom, "scrollHeight="+el.scrollHeight,
-    //            "clientHeight="+el.clientHeight, "scrollTop="+el.scrollTop,
-    //            "" + (el.scrollHeight - el.clientHeight) + "<=" + (el.scrollTop + 1));
 
     // append the text
     if (resp.start > el.textEnd) {
@@ -47,16 +43,4 @@ function updateText(resp) {
 
 function retryLoad(repeat) {
   fetchText(1000, repeat);
-}
-
-//===== Log page
-
-function showDbgMode(mode) {
-  var btns = $('.dbg-btn');
-  for (var i=0; i < btns.length; i++) {
-    if (btns[i].id === "dbg-"+mode)
-      addClass(btns[i], "button-selected");
-    else
-      removeClass(btns[i], "button-selected");
-  }
 }

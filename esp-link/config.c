@@ -11,21 +11,21 @@
 FlashConfig flashConfig;
 FlashConfig flashDefault = {
   .seq = 33, .magic = 0, .crc = 0,
-  .conn_led_pin = LED_CONN_PIN, .ser_led_pin = LED_SERIAL_PIN,
-  .baud_rate    = 115200,
+  .sys_descr    = "P1 Port wifi adapter\0",
   .hostname     = "SlimmeLezer\0",
   .staticip     = 0,
   .netmask      = 0x00ffffff,
   .gateway      = 0,
-  .log_mode     = LOG_MODE_OFF,
+  .sntp_server  = "hu.pool.ntp.org\0", .timezone_offset = 0,
+  .mdns_enable = 1, .mdns_servername = "http\0",
   .swap_uart    = 1,
-  .sys_descr 	  = "P1 Port wifi adapter\0",
-  .rx_pullup	  = 1,
-  .sntp_server  = "hu.pool.ntp.org\0",
-  .mdns_enable = 1, .mdns_servername = "http\0", .timezone_offset = 0,
+  .rx_pullup    = 1,
+  .baud_rate    = 115200,
   .data_bits	= EIGHT_BITS,
   .parity	= NONE_BITS,
   .stop_bits	= ONE_STOP_BIT,
+  .conn_led_pin = LED_CONN_PIN, 
+  .ser_led_pin = LED_SERIAL_PIN,
 };
 
 typedef union {

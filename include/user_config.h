@@ -12,7 +12,6 @@
 #undef ESPFS_DBG
 #undef CGI_DBG
 #define CGIFLASH_DBG
-#define CGIPINS_DBG
 #define CGIWIFI_DBG
 #define CONFIG_DBG
 #define LOG_DBG
