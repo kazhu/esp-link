@@ -1,4 +1,4 @@
-ESP-LINK: Wifi-Serial Bridge w/REST&MQTT
+P1 port reader forked from ESP-LINK
 ========================================
 
 <img src="https://cloud.githubusercontent.com/assets/39480/19333951/73fcdcbe-90ad-11e6-8572-5e654377275a.png">
